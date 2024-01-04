@@ -17,6 +17,9 @@ public class OrbitCamera : MonoBehaviour
     
     [SerializeField, Range(0f, 1f)]
     float focusCentering = 0.5f;
+
+    [SerializeField]
+    private Vector3 focusOffset;
     
     [SerializeField, Range(1f, 360f)]
     float rotationSpeed = 90f;
@@ -26,7 +29,7 @@ public class OrbitCamera : MonoBehaviour
 
     [SerializeField]
     private InputActionReference cameraMovement;
-    
+
     Vector2 orbitAngles = new Vector2(45f, 0f);
     
     [SerializeField, Min(0f)]
@@ -86,7 +89,7 @@ public class OrbitCamera : MonoBehaviour
 
     void UpdateFocusPoint () {
         previousFocusPoint = focusPoint;
-        Vector3 targetPoint = focus.position;
+        Vector3 targetPoint = focus.position + focusOffset;
         if (focusRadius > 0f) {
             float distance = Vector3.Distance(targetPoint, focusPoint);
             float t = 1f;
