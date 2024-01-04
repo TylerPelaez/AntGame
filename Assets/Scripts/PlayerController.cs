@@ -28,15 +28,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     Transform playerInputSpace = default;
 
-    [SerializeField] private float coyoteTime;
+    [SerializeField]
+    private int coyoteTime = 15;
+
+    [SerializeField]
+    private float soapFieldDurationSeconds = 2.0f;
+
+    [SerializeField, Range(0f, 1f)]
+    private float soapFieldGravityModifier = 0.5f; 
     
     Rigidbody body;
     Vector3 velocity, desiredVelocity;
     
-    [SerializeField]
     Vector3 contactNormal, steepNormal;
     bool desiredJump;
-    [SerializeField]
     int groundContactCount, steepContactCount;
     bool OnGround => groundContactCount > 0;
     bool OnSteep => steepContactCount > 0;
@@ -52,6 +57,8 @@ public class PlayerController : MonoBehaviour
     private GameObject modelObject;
 
     private Vector3 upAxis;
+
+    private float lastInSoapFieldTime;
     
     void Awake () {
         body = GetComponent<Rigidbody>();
@@ -133,7 +140,9 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            velocity += Physics.gravity * Time.deltaTime;
+            var soapMod = (Time.time - lastInSoapFieldTime) > soapFieldDurationSeconds ? 1.0f : soapFieldGravityModifier;
+            
+            velocity += Physics.gravity * Time.deltaTime * soapMod;
         }
 
         body.velocity = velocity;
@@ -267,5 +276,10 @@ public class PlayerController : MonoBehaviour
     private Vector3 ProjectOnContactPlane(Vector3 vector)
     {
         return vector - contactNormal * Vector3.Dot(vector, contactNormal);
+    }
+
+    public void ApplySoapFieldEffect()
+    {
+        lastInSoapFieldTime = Time.time;
     }
 }
