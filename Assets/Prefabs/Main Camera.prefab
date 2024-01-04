@@ -66,7 +66,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.1
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -115,6 +115,9 @@ MonoBehaviour:
   minVerticalAngle: 10
   maxVerticalAngle: 60
   cameraMovement: {fileID: -732006785959011336, guid: 7edb534993359aa47bcf5dd1829e93cc, type: 3}
+  obstructionMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
   alignDelay: 1
   alignSmoothRange: 45
 --- !u!114 &2160889986948033353
