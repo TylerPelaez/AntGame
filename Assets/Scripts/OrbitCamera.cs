@@ -30,6 +30,9 @@ public class OrbitCamera : MonoBehaviour
     [SerializeField]
     private InputActionReference cameraMovement;
 
+    [SerializeField]
+    LayerMask obstructionMask = -1;
+    
     Vector2 orbitAngles = new Vector2(45f, 0f);
     
     [SerializeField, Min(0f)]
@@ -41,8 +44,22 @@ public class OrbitCamera : MonoBehaviour
     Vector3 focusPoint, previousFocusPoint;
     float lastManualRotationTime;
     
+    Camera regularCamera;
+    
+    Vector3 CameraHalfExtends {
+        get {
+            Vector3 halfExtends;
+            halfExtends.y =
+                regularCamera.nearClipPlane *
+                Mathf.Tan(0.5f * Mathf.Deg2Rad * regularCamera.fieldOfView);
+            halfExtends.x = halfExtends.y * regularCamera.aspect;
+            halfExtends.z = 0f;
+            return halfExtends;
+        }
+    }
     
     void Awake () {
+        regularCamera = GetComponent<Camera>();
         focusPoint = focus.position;
         transform.localRotation = Quaternion.Euler(orbitAngles);
         Cursor.lockState = CursorLockMode.Locked;
@@ -83,6 +100,20 @@ public class OrbitCamera : MonoBehaviour
         
         Vector3 lookDirection = lookRotation * Vector3.forward;
         Vector3 lookPosition = focusPoint - lookDirection * distance;
+        
+        
+        Vector3 rectOffset = lookDirection * regularCamera.nearClipPlane;
+        Vector3 rectPosition = lookPosition + rectOffset;
+        Vector3 castFrom = focus.position;
+        Vector3 castLine = rectPosition - castFrom;
+        float castDistance = castLine.magnitude;
+        Vector3 castDirection = castLine / castDistance;
+        
+        if (Physics.BoxCast(castFrom, CameraHalfExtends, castDirection, out RaycastHit hit, lookRotation, castDistance, obstructionMask)) {
+            rectPosition = castFrom + castDirection * hit.distance;
+			lookPosition = rectPosition - rectOffset;
+        }
+        
         transform.SetPositionAndRotation(lookPosition, lookRotation);
         ManualRotation();
     }
