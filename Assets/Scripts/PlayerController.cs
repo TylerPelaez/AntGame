@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
     private float modelTurnSpeed = 100f;
 
     Rigidbody body, connectedBody, previousConnectedBody;
-    Vector3 velocity, desiredVelocity, connectionVelocity;
+    Vector3 velocity, desiredVelocity, connectionVelocity, prevConnectionVelocity;
     
     Vector3 contactNormal, steepNormal;
     bool desiredJump;
@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour
 
         if (playerInput != Vector2.zero)
         {
-            var newForward = velocity.normalized;
+            var newForward = previousConnectedBody != null ? (velocity - prevConnectionVelocity).normalized : velocity.normalized;
             newForward.y = 0;
 
             
@@ -158,6 +158,7 @@ public class PlayerController : MonoBehaviour
     private void ClearState()
     {
         groundContactCount = steepContactCount = 0;
+        prevConnectionVelocity = connectionVelocity;
         contactNormal = steepNormal = connectionVelocity =  Vector3.zero;
         previousConnectedBody = connectedBody;
         connectedBody = null;

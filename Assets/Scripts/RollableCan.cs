@@ -77,14 +77,14 @@ public class RollableCan : MonoBehaviour
 
     private bool CanRoll()
     {
-        var movementDirection = transform.InverseTransformDirection(currentRollDirection);
-        return !Physics.SphereCast(transform.position, rollCheckRadius, movementDirection, out var hitInfo, rollXTranslationIncrement + (rollCheckRadius / 2.0f), rollCheckMask);
+        var movementDirection = transform.TransformDirection(currentRollDirection);
+        return !Physics.SphereCast(transform.position, rollCheckRadius, movementDirection, out var hitInfo, rollXTranslationIncrement, rollCheckMask);
     }
     
     private void DoRoll()
     {
         rollActive = false;
-        var movementDirection = transform.InverseTransformDirection(currentRollDirection);
+        var movementDirection = transform.TransformDirection(currentRollDirection);
         modelObject.transform.DOLocalRotate(
             modelObject.transform.localRotation.eulerAngles +
             new Vector3(0, 0, rollXRotationIncrement * -currentRollDirection.x), rotationDurationSeconds, RotateMode.FastBeyond360);
