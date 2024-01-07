@@ -14,8 +14,8 @@ TagManager:
   - Player
   - FoodItem
   - SoapField
-  - 
-  - 
+  - CanRoll
+  - CanCollider
   - 
   - 
   - 

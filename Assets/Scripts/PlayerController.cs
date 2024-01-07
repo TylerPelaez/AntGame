@@ -35,8 +35,11 @@ public class PlayerController : MonoBehaviour
     private float soapFieldDurationSeconds = 2.0f;
 
     [SerializeField, Range(0f, 1f)]
-    private float soapFieldGravityModifier = 0.5f; 
-    
+    private float soapFieldGravityModifier = 0.5f;
+
+    [SerializeField]
+    private float modelTurnSpeed = 100f;
+
     Rigidbody body;
     Vector3 velocity, desiredVelocity;
     
@@ -116,7 +119,7 @@ public class PlayerController : MonoBehaviour
             {
                 newForward = ProjectOnContactPlane(newForward).normalized;
             }
-            modelObject.transform.forward = newForward;
+            modelObject.transform.forward = Vector3.Lerp(modelObject.transform.forward, newForward, modelTurnSpeed * Time.deltaTime);
         }
     }
 

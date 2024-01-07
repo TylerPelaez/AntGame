@@ -112,7 +112,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "left",
+                    "name": "right",
                     "id": "51b82cf3-4e74-447a-bb3a-da25d8533119",
                     "path": "<Mouse>/delta/left",
                     "interactions": "",
@@ -123,7 +123,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "right",
+                    "name": "left",
                     "id": "d1e44fbf-654b-4574-9cca-27b0cd30fa5a",
                     "path": "<Mouse>/delta/right",
                     "interactions": "",
@@ -134,7 +134,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "up",
+                    "name": "down",
                     "id": "803fc974-b436-47d2-b499-d9ac69e614a6",
                     "path": "<Mouse>/delta/up",
                     "interactions": "",
@@ -145,7 +145,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "down",
+                    "name": "up",
                     "id": "e5fd0d6d-7448-42c5-9ade-01d8f553d978",
                     "path": "<Mouse>/delta/down",
                     "interactions": "",

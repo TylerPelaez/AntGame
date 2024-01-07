@@ -92,10 +92,9 @@ MonoBehaviour:
     m_Bits: 51
   playerInputSpace: {fileID: 0}
   coyoteTime: 15
-  contactNormal: {x: 0, y: 0, z: 0}
-  steepNormal: {x: 0, y: 0, z: 0}
-  groundContactCount: 0
-  steepContactCount: 0
+  soapFieldDurationSeconds: 2
+  soapFieldGravityModifier: 0.4
+  modelTurnSpeed: 25
   movement: {fileID: 8812794308259379070, guid: 7edb534993359aa47bcf5dd1829e93cc, type: 3}
   jump: {fileID: -1185943342887017921, guid: 7edb534993359aa47bcf5dd1829e93cc, type: 3}
   modelObject: {fileID: 1962504897878564579}
