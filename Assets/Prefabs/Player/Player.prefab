@@ -81,6 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 1.5
+  maxSprintSpeed: 2.5
   maxAcceleration: 60
   maxAirAcceleration: 46.8
   jumpHeight: 0.65
@@ -97,6 +98,7 @@ MonoBehaviour:
   modelTurnSpeed: 25
   movement: {fileID: 8812794308259379070, guid: 7edb534993359aa47bcf5dd1829e93cc, type: 3}
   jump: {fileID: -1185943342887017921, guid: 7edb534993359aa47bcf5dd1829e93cc, type: 3}
+  sprint: {fileID: -7355028092008661426, guid: 7edb534993359aa47bcf5dd1829e93cc, type: 3}
   modelObject: {fileID: 1962504897878564579}
   antPushLayerMask:
     serializedVersion: 2

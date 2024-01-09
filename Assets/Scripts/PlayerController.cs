@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     //https://catlikecoding.com/unity/tutorials/movement/physics/ for all of this movement code 
     [SerializeField, Range(0f, 10f)]
-    float maxSpeed = 6f;
+    float maxSpeed = 6f, maxSprintSpeed = 10f;
 
     [SerializeField, Range(0f, 100f)]
     float maxAcceleration = 10f, maxAirAcceleration = 1f;
@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
     int stepsSinceLastGrounded, stepsSinceLastJump;
 
     [SerializeField] 
-    private InputActionReference movement, jump;
+    private InputActionReference movement, jump, sprint;
 
     [SerializeField] 
     private GameObject modelObject;
@@ -106,6 +106,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Vector2 playerInput = movement.action.ReadValue<Vector2>();
+        var sprinting = sprint.action.IsPressed();
+        
         if (playerInputSpace) {
             Vector3 forward = playerInputSpace.forward;
             forward.y = 0f;
@@ -114,11 +116,11 @@ public class PlayerController : MonoBehaviour
             right.y = 0f;
             right.Normalize();
             desiredVelocity =
-                (forward * playerInput.y + right * playerInput.x) * maxSpeed;
+                (forward * playerInput.y + right * playerInput.x) * (sprinting ? maxSprintSpeed : maxSpeed);
         }
         else {
             desiredVelocity =
-                new Vector3(playerInput.x, 0f, playerInput.y) * maxSpeed;
+                new Vector3(playerInput.x, 0f, playerInput.y) * (sprinting ? maxSprintSpeed : maxSpeed);
         }
 
         if (playerInput != Vector2.zero)
@@ -135,12 +137,14 @@ public class PlayerController : MonoBehaviour
             if (OnGround)
             {
                 animator.SetBool(Walk, true);
+                animator.speed = sprinting ? maxSprintSpeed / maxSpeed : 1;
                 newForward = ProjectOnContactPlane(newForward).normalized;
             }
             modelObject.transform.forward = Vector3.Lerp(modelObject.transform.forward, newForward, modelTurnSpeed * Time.deltaTime);
         }
         else
         {
+            animator.speed = 1;
             animator.SetBool(Walk, false);
         }
     }

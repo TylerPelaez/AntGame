@@ -29,16 +29,20 @@ public class Fan : MonoBehaviour
     {
         if (!running)
         {
-            animator.speed = 0;
-            fanBladesKillArea.gameObject.SetActive(false);
+            if (animator != null)
+                animator.speed = 0;
+            if (fanBladesKillArea) 
+                fanBladesKillArea.gameObject.SetActive(false);
             antPusher.SetActive(false);
             windParticles.Stop();
         }
         else
         {
-            animator.speed = 1;
+            if (animator != null)
+                animator.speed = 1;
             antPusher.SetActive(true);
-            fanBladesKillArea.gameObject.SetActive(true);
+            if (fanBladesKillArea)
+                fanBladesKillArea.gameObject.SetActive(true);
             if (!windParticles.isPlaying)
                 windParticles.Play();
         }
