@@ -69,14 +69,18 @@ public class PlayerController : MonoBehaviour
     
     private Vector3 upAxis;
 
-    private float lastInSoapFieldTime;
+    private float lastInSoapFieldTime = -999999;
     
     Vector3 connectionWorldPosition, connectionLocalPosition;
 
     private int antPushCount;
     private Vector3 antPushOrigin, antPushDirection, antPushVelocity;
-    
-    
+
+    [SerializeField]
+    private Animator animator;
+
+    private static readonly int Walk = Animator.StringToHash("Walk");
+
     void Awake () {
         body = GetComponent<Rigidbody>();
         body.useGravity = false;
@@ -122,8 +126,7 @@ public class PlayerController : MonoBehaviour
             var newForward = previousConnectedBody != null ? (velocity - prevConnectionVelocity).normalized : velocity.normalized;
             newForward.y = 0;
 
-            
-            
+
             if (newForward == Vector3.zero)
             {
                 newForward = desiredVelocity;
@@ -131,9 +134,14 @@ public class PlayerController : MonoBehaviour
             
             if (OnGround)
             {
+                animator.SetBool(Walk, true);
                 newForward = ProjectOnContactPlane(newForward).normalized;
             }
             modelObject.transform.forward = Vector3.Lerp(modelObject.transform.forward, newForward, modelTurnSpeed * Time.deltaTime);
+        }
+        else
+        {
+            animator.SetBool(Walk, false);
         }
     }
 
@@ -147,6 +155,11 @@ public class PlayerController : MonoBehaviour
         if (antPushCount > 0)
         {
             velocity += antPushVelocity;
+        }
+        
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Jump") && OnGround && stepsSinceLastJump > 2)
+        {
+            animator.Play("Idle");
         }
         
         if (desiredJump)
@@ -183,6 +196,7 @@ public class PlayerController : MonoBehaviour
     {
         if (OnGround || (stepsSinceLastGrounded < coyoteTime && stepsSinceLastJump > coyoteTime)|| jumpPhase < maxAirJumps)
         {
+            animator.Play("Jump");
             stepsSinceLastJump = 0;
             jumpPhase += 1;
             float jumpSpeed = Mathf.Sqrt(2f * Physics.gravity.magnitude * jumpHeight);
