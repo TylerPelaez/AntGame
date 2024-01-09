@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -60,11 +61,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField] 
     private GameObject modelObject;
 
+    [SerializeField]
+    private LayerMask antPushLayerMask;
+
+    [SerializeField]
+    private float antPushStrength;
+    
     private Vector3 upAxis;
 
     private float lastInSoapFieldTime;
     
     Vector3 connectionWorldPosition, connectionLocalPosition;
+
+    private int antPushCount;
+    private Vector3 antPushOrigin, antPushDirection, antPushVelocity;
+    
     
     void Awake () {
         body = GetComponent<Rigidbody>();
@@ -133,6 +144,10 @@ public class PlayerController : MonoBehaviour
         
         AdjustVelocity();
 
+        if (antPushCount > 0)
+        {
+            velocity += antPushVelocity;
+        }
         
         if (desiredJump)
         {
@@ -157,9 +172,9 @@ public class PlayerController : MonoBehaviour
 
     private void ClearState()
     {
-        groundContactCount = steepContactCount = 0;
+        groundContactCount = steepContactCount = antPushCount = 0;
         prevConnectionVelocity = connectionVelocity;
-        contactNormal = steepNormal = connectionVelocity =  Vector3.zero;
+        contactNormal = steepNormal = connectionVelocity = antPushOrigin = antPushVelocity = antPushDirection = Vector3.zero;
         previousConnectedBody = connectedBody;
         connectedBody = null;
     }
@@ -184,7 +199,7 @@ public class PlayerController : MonoBehaviour
         Vector3 xAxis = ProjectOnContactPlane(Vector3.right).normalized;
         Vector3 zAxis = ProjectOnContactPlane(Vector3.forward).normalized;
 
-        Vector3 relativeVelocity = velocity - connectionVelocity;
+        Vector3 relativeVelocity = (velocity - connectionVelocity) - antPushVelocity;
         float currentX = Vector3.Dot(relativeVelocity, xAxis);
         float currentZ = Vector3.Dot(relativeVelocity, zAxis);
 
@@ -224,6 +239,18 @@ public class PlayerController : MonoBehaviour
                 UpdateConnectionState();
             }
         }
+        
+        if (antPushCount > 0)
+        {
+            UpdateAntPushState();
+        }
+    }
+
+    void UpdateAntPushState()
+    {
+        var correctedOrigin = antPushOrigin / antPushCount;
+        var direction = (antPushDirection / antPushCount).normalized;
+        antPushVelocity = antPushStrength * Time.deltaTime * direction;
     }
 
     void UpdateConnectionState()
@@ -319,10 +346,33 @@ public class PlayerController : MonoBehaviour
         lastInSoapFieldTime = Time.time;
     }
 
+
+    private void EvaluateAntPush(Collider other)
+    {
+        antPushCount++;
+        antPushOrigin += other.gameObject.transform.position;
+        antPushDirection += other.gameObject.transform.forward;
+    }
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (antPushLayerMask == (antPushLayerMask | (1 << other.gameObject.layer)))
+        {
+            EvaluateAntPush(other);
+        }
+    }
+    
+    private void OnTriggerStay(Collider other)
+    {
+        if (antPushLayerMask == (antPushLayerMask | (1 << other.gameObject.layer)))
+        {
+            EvaluateAntPush(other);
+        }
+    }
+
     public void Kill()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentSceneName);
-
     }
 }

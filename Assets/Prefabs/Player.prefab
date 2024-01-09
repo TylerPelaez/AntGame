@@ -98,6 +98,10 @@ MonoBehaviour:
   movement: {fileID: 8812794308259379070, guid: 7edb534993359aa47bcf5dd1829e93cc, type: 3}
   jump: {fileID: -1185943342887017921, guid: 7edb534993359aa47bcf5dd1829e93cc, type: 3}
   modelObject: {fileID: 1962504897878564579}
+  antPushLayerMask:
+    serializedVersion: 2
+    m_Bits: 4096
+  antPushStrength: 100
 --- !u!114 &2977360757333844778
 MonoBehaviour:
   m_ObjectHideFlags: 0
