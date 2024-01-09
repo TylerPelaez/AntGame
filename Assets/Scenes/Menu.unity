@@ -2496,7 +2496,7 @@ GameObject:
   - component: {fileID: 1219963546}
   - component: {fileID: 1219963545}
   m_Layer: 5
-  m_Name: Zoe Moose
+  m_Name: Zoe Nelson
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2616,7 +2616,7 @@ GameObject:
   - component: {fileID: 1290523761}
   - component: {fileID: 1290523760}
   m_Layer: 5
-  m_Name: ZoeMooseText
+  m_Name: ZoeNelsonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3969,7 +3969,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Zoe Moose
+  m_text: Zoe Nelson
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e3ff70accd08f94a973e27996db9339, type: 2}
   m_sharedMaterial: {fileID: 142672071742186164, guid: 2e3ff70accd08f94a973e27996db9339, type: 2}
