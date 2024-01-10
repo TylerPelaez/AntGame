@@ -77,10 +77,16 @@ public class PlayerController : MonoBehaviour
     private Vector3 antPushOrigin, antPushDirection, antPushVelocity;
 
     [SerializeField]
-    private Animator animator;
+    private Animator animator, bubbleAnimator;
+
+    [SerializeField]
+    private GameObject bubble;
 
     private static readonly int Walk = Animator.StringToHash("Walk");
 
+    private bool beganSoapBubble;
+    
+    
     void Awake () {
         body = GetComponent<Rigidbody>();
         body.useGravity = false;
@@ -147,6 +153,15 @@ public class PlayerController : MonoBehaviour
             animator.speed = 1;
             animator.SetBool(Walk, false);
         }
+
+        bubbleAnimator.SetBool("Grounded", OnGround);
+
+        var soapBubbleActive = (Time.time - lastInSoapFieldTime) <= soapFieldDurationSeconds;
+        bubble.SetActive(soapBubbleActive);
+        if (!soapBubbleActive)
+        {
+            beganSoapBubble = false;
+        }
     }
 
     private void FixedUpdate()
@@ -164,6 +179,7 @@ public class PlayerController : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Jump") && OnGround && stepsSinceLastJump > 2)
         {
             animator.Play("Idle");
+            bubbleAnimator.Play("Ground");
         }
         
         if (desiredJump)
@@ -201,6 +217,7 @@ public class PlayerController : MonoBehaviour
         if (OnGround || (stepsSinceLastGrounded < coyoteTime && stepsSinceLastJump > coyoteTime)|| jumpPhase < maxAirJumps)
         {
             animator.Play("Jump");
+            bubbleAnimator.Play("Jump");
             stepsSinceLastJump = 0;
             jumpPhase += 1;
             float jumpSpeed = Mathf.Sqrt(2f * Physics.gravity.magnitude * jumpHeight);
@@ -266,7 +283,6 @@ public class PlayerController : MonoBehaviour
 
     void UpdateAntPushState()
     {
-        var correctedOrigin = antPushOrigin / antPushCount;
         var direction = (antPushDirection / antPushCount).normalized;
         antPushVelocity = antPushStrength * Time.deltaTime * direction;
     }
@@ -362,6 +378,12 @@ public class PlayerController : MonoBehaviour
     public void ApplySoapFieldEffect()
     {
         lastInSoapFieldTime = Time.time;
+        bubble.SetActive(true);
+        if (!beganSoapBubble)
+        {
+            beganSoapBubble = true;
+            bubbleAnimator.Play("Appear");
+        }
     }
 
 
