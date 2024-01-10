@@ -1,4 +1,5 @@
 using System;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -82,11 +83,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject bubble;
 
+    [SerializeField]
+    private CinemachineFreeLook cm;
+
     private static readonly int Walk = Animator.StringToHash("Walk");
 
     private bool beganSoapBubble;
+
+
+    private bool sprintActive;
     
-    
+    [SerializeField]
+    private float sprintFOVTransitionSpeed = 100f, defaultFOV = 40f, sprintFOV = 45f;
+
     void Awake () {
         body = GetComponent<Rigidbody>();
         body.useGravity = false;
@@ -113,6 +122,9 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 playerInput = movement.action.ReadValue<Vector2>();
         var sprinting = sprint.action.IsPressed();
+        
+        var target = sprinting ? sprintFOV : defaultFOV;
+        cm.m_Lens.FieldOfView = Mathf.Lerp(cm.m_Lens.FieldOfView, target, Time.deltaTime * sprintFOVTransitionSpeed);
         
         if (playerInputSpace) {
             Vector3 forward = playerInputSpace.forward;
