@@ -96,6 +96,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float sprintFOVTransitionSpeed = 100f, defaultFOV = 40f, sprintFOV = 45f;
 
+    [SerializeField]
+    private GameObject spawnPoints;
+    
     void Awake () {
         body = GetComponent<Rigidbody>();
         body.useGravity = false;
@@ -428,7 +431,22 @@ public class PlayerController : MonoBehaviour
 
     public void Kill()
     {
-        string currentSceneName = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene(currentSceneName);
+        var pointsTransform = spawnPoints.transform;
+        var pointCount = pointsTransform.childCount;
+
+        float closestDistanceSq = Single.PositiveInfinity;
+        Vector3 closestPosition = Vector3.positiveInfinity;
+        for (int i = 0; i < pointCount; i++)
+        {
+            var point = pointsTransform.GetChild(i).position;
+            var distSq = (transform.position - point).sqrMagnitude;
+            if (distSq < closestDistanceSq)
+            {
+                closestDistanceSq = distSq;
+                closestPosition = point;
+            }
+        }
+
+        transform.position = closestPosition;
     }
 }
