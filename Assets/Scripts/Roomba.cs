@@ -80,7 +80,7 @@ public class Roomba : MonoBehaviour
         var toNextPointDirection = (patrolPoints[nextPatrolPoint] - patrolPoints[currentPatrolPoint]).normalized;
         var angles = Vector3.Angle(transform.forward, toNextPointDirection);
 
-        var rotateTween = body.DORotate(new Vector3(0, transform.rotation.eulerAngles.y + angles, 0), angles / rotationSpeed);
+        var rotateTween = body.DORotate(new Vector3(0, transform.rotation.eulerAngles.y + angles, 0), angles / rotationSpeed, RotateMode.FastBeyond360);
         rotateTween.SetUpdate(UpdateType.Fixed);
 
         rotateTween.OnComplete(StartTranslate);
