@@ -5,8 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
-    private GameObject finalDoor;
-    
+    private WinArea winArea;
+
     public int FoodCollected { get; private set; }
     public int TotalFood { get; private set; }
 
@@ -24,5 +24,10 @@ public class GameManager : MonoBehaviour
     void OnFoodItemCollected()
     {
         FoodCollected++;
+
+        if (FoodCollected == TotalFood)
+        {
+            winArea.canWin = true;
+        }
     }
 }
