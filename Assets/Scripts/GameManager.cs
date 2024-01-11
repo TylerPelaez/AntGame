@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject finalDoor;
+    
     public int FoodCollected { get; private set; }
     public int TotalFood { get; private set; }
 
