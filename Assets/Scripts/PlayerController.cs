@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
     int stepsSinceLastGrounded, stepsSinceLastJump;
 
     [SerializeField] 
-    private InputActionReference movement, jump, sprint;
+    private InputActionReference movement, jump, sprint, pause;
 
     [SerializeField] 
     private GameObject modelObject;
@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private CinemachineFreeLook cm;
-
+    
     private static readonly int Walk = Animator.StringToHash("Walk");
 
     private bool beganSoapBubble;
@@ -98,16 +98,21 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private GameObject spawnPoints;
+
+    [SerializeField]
+    private GameObject options;
     
     void Awake () {
         body = GetComponent<Rigidbody>();
         body.useGravity = false;
         OnValidate();
+        Cursor.lockState = CursorLockMode.Locked;
     }
     
     private void OnEnable()
     {
         jump.action.performed += OnJumpPerformed;
+        pause.action.performed += OnPausePerformed;
     }
 
     private void OnDisable()
@@ -448,5 +453,16 @@ public class PlayerController : MonoBehaviour
         }
 
         transform.position = closestPosition;
+    }
+
+    private void OnPausePerformed(InputAction.CallbackContext ctx)
+    {
+        if (Time.timeScale > 0)
+        {
+            Time.timeScale = 0;
+            Cursor.lockState = CursorLockMode.None;
+            options.SetActive(true);
+            cm.gameObject.GetComponent<CinemachineInputProvider>().enabled = false;
+        }
     }
 }
