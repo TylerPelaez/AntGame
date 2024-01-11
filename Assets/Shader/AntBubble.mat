@@ -81,6 +81,7 @@ Material:
     - _Noise_Subtraction: 0.69
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _ReflectionTintAmount: 0.763
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -90,6 +91,7 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ReflectionTint: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &3148193418938188713
 MonoBehaviour:
