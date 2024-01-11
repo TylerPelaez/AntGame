@@ -11,5 +11,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/One Room.unity
     guid: 4537206766b9069418951fdd880f6a3f
+  - enabled: 1
+    path: Assets/Scenes/WinScreen.unity
+    guid: d85067732b01f5044bdc3081e1a28ad8
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: f5750f9ea2443af4ca1887cb729645ab, type: 2}
