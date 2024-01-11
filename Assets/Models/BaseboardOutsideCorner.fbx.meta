@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ebb8df596cad1dc4a88105aa832cdea3
+guid: 1c741d9902ed796468e8e7ff47c217a4
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,15 +7,10 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Frame
-    second: {fileID: -8067726398312463513, guid: 8950ed1c1167b564e93c0fff7b14ca9b, type: 3}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Painting
-    second: {fileID: 2100000, guid: 8d0da79ef176fcd4c9beeee9d5a34bec, type: 2}
+      name: standardSurface1
+    second: {fileID: -8067726398312463513, guid: 59ba8c5c0845902458e32d15e4ad4c59, type: 3}
   materials:
-    materialImportMode: 1
+    materialImportMode: 2
     materialName: 0
     materialSearch: 1
     materialLocation: 1
