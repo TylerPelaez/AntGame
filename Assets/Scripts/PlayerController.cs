@@ -120,6 +120,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        var sensitivity = PlayerPrefs.GetFloat("sensitivity", 5f);
+        cm.m_XAxis.m_MaxSpeed = 0.6f * sensitivity;
+        cm.m_YAxis.m_MaxSpeed = 0.006f * sensitivity;
+        
         Vector2 playerInput = movement.action.ReadValue<Vector2>();
         var sprinting = sprint.action.IsPressed();
         

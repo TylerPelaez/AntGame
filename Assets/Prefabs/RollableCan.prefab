@@ -385,7 +385,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 307942928300418113}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 60.000004
+    FieldOfView: 60
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -511,6 +511,7 @@ GameObject:
   - component: {fileID: 5257860664536544621}
   - component: {fileID: 896881841542718295}
   - component: {fileID: 524534758127059021}
+  - component: {fileID: 2343739487930734554}
   m_Layer: 9
   m_Name: RollableCan
   m_TagString: Untagged
@@ -549,8 +550,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 023fc57110d0a734da045583eb4e6a71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vCam: {fileID: 1220966952670518946}
-  vCamInitialPriority: 10
   rollLeft: {fileID: 2606734262502829438}
   rollRight: {fileID: 2432488448353107785}
   rollCanTimeThresholdSeconds: 0.4
@@ -585,3 +584,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5, y: 0.34, z: 0.58}
   m_Center: {x: 0, y: -0.03, z: 0}
+--- !u!114 &2343739487930734554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5891598205380343172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21c0ff5e7d2d0c44794514fe24a76e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vCam: {fileID: 1220966952670518946}
+  vCamInitialPriority: 10
+  vCamBoostPriority: 10

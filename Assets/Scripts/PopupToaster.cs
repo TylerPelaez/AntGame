@@ -54,7 +54,7 @@ public class PopupToaster : MonoBehaviour
             waffle1Animation.Play();
         if (waffle2Animation)
             waffle2Animation.Play();
-        var tween = slider.transform.DOLocalMove(sliderOriginalPosition, waffle1Animation.GetClip("Waffle").length);
+        var tween = slider.transform.DOLocalMove(sliderOriginalPosition, waffle1Animation.GetClip("Waffle").length / 3f);
         tween.OnComplete(() =>
         {
             sliderRigidBody.isKinematic = false;

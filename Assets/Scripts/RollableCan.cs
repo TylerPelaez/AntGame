@@ -1,16 +1,8 @@
-using System;
-using Cinemachine;
 using DG.Tweening;
 using UnityEngine;
 
 public class RollableCan : MonoBehaviour
 {
-    [SerializeField]
-    private CinemachineVirtualCamera vCam;
-
-    [SerializeField]
-    private int vCamInitialPriority = 10;
-
     [SerializeField]
     private RollCanDirectionalTrigger rollLeft;
 
@@ -98,16 +90,14 @@ public class RollableCan : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            vCam.Priority = vCamInitialPriority + 10;
             player = other.gameObject;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && vCam.Priority > vCamInitialPriority)
+        if (other.gameObject.CompareTag("Player"))
         {
-            vCam.Priority = vCamInitialPriority;
             player = null;
         }
     }
