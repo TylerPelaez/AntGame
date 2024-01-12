@@ -91,6 +91,7 @@ public class RollableCan : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             player = other.gameObject;
+            UICanvas.Instance.SetPromptText("Move Left And Right To Roll");
         }
     }
 
@@ -99,6 +100,7 @@ public class RollableCan : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             player = null;
+            UICanvas.Instance.HidePromptText();
         }
     }
 }

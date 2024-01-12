@@ -12,7 +12,7 @@ public class Fan : MonoBehaviour
     private ParticleSystem windParticles;
     
     [SerializeField]
-    private bool running;
+    public bool running;
 
     private Animator animator;
     
@@ -33,18 +33,21 @@ public class Fan : MonoBehaviour
                 animator.speed = 0;
             if (fanBladesKillArea) 
                 fanBladesKillArea.gameObject.SetActive(false);
-            antPusher.SetActive(false);
             windParticles.Stop();
         }
         else
         {
             if (animator != null)
                 animator.speed = 1;
-            antPusher.SetActive(true);
             if (fanBladesKillArea)
                 fanBladesKillArea.gameObject.SetActive(true);
             if (!windParticles.isPlaying)
                 windParticles.Play();
         }
+    }
+
+    public void Activate()
+    {
+        running = true;
     }
 }

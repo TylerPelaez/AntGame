@@ -422,7 +422,16 @@ public class PlayerController : MonoBehaviour
     {
         if (antPushLayerMask == (antPushLayerMask | (1 << other.gameObject.layer)))
         {
-            EvaluateAntPush(other);
+            // TODO: kill this hack
+            var fan = other.gameObject.transform.parent.GetComponent<Fan>();
+            if (!fan || fan.running)
+            {
+                EvaluateAntPush(other);
+            }
+            else
+            {
+                UICanvas.Instance.SetPromptText("The Heat Is Off");
+            }
         }
     }
     
@@ -430,10 +439,26 @@ public class PlayerController : MonoBehaviour
     {
         if (antPushLayerMask == (antPushLayerMask | (1 << other.gameObject.layer)))
         {
-            EvaluateAntPush(other);
+            var fan = other.gameObject.transform.parent.GetComponent<Fan>();
+            if (!fan || fan.running)
+            {
+                EvaluateAntPush(other);
+            }
+            else
+            {
+                UICanvas.Instance.SetPromptText("The Heat Is Off");
+            }
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (antPushLayerMask == (antPushLayerMask | (1 << other.gameObject.layer)))
+        {
+            UICanvas.Instance.HidePromptText();
+        }
+    }
+    
     public void Kill()
     {
         var pointsTransform = spawnPoints.transform;
