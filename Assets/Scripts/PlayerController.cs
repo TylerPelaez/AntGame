@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
     private GameObject options;
     
     [SerializeField]
-    private AudioClip jumpSFX;
+    private AudioClip jumpSFX, bubblePopSFX, collectSFX, walkSFX, sprintSFX;
     
     private AudioSource audioSource;
     
@@ -190,6 +190,11 @@ public class PlayerController : MonoBehaviour
         bubble.SetActive(soapBubbleActive);
         if (!soapBubbleActive)
         {
+            if (beganSoapBubble)
+            {
+                audioSource.clip = bubblePopSFX;
+                audioSource.Play();
+            }
             beganSoapBubble = false;
         }
     }
@@ -428,7 +433,12 @@ public class PlayerController : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (antPushLayerMask == (antPushLayerMask | (1 << other.gameObject.layer)))
+        if (other.gameObject.layer == LayerMask.NameToLayer("FoodItem"))
+        {
+            audioSource.clip = collectSFX;
+            audioSource.Play();
+        }
+        else if (antPushLayerMask == (antPushLayerMask | (1 << other.gameObject.layer)))
         {
             // TODO: kill this hack
             var fan = other.gameObject.transform.parent.GetComponent<Fan>();

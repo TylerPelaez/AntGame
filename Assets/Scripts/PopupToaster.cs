@@ -44,6 +44,7 @@ public class PopupToaster : MonoBehaviour
         //TODO: start playing sound
         sliderRigidBody.isKinematic = true;
         poppingUp = true;
+        GetComponent<AudioSource>().Play();
         StartCoroutine(DoPopup());
     }
 
