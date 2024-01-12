@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 95abbf90af81328438f3b7ebf8157eba
+guid: 51dfdb2378c4ae74ca230370599830eb
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,28 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: OrangePopsicle
-    second: {fileID: 2100000, guid: 49ea4460b3859124292e4c69ad5b0155, type: 2}
+      name: Plate
+    second: {fileID: 2100000, guid: 3a0227c642360bc4981fe1f9e9aaa6a3, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: RedPopsicle
-    second: {fileID: 2100000, guid: 94f4c15d3db9589489e0019a891d1556, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: RubberBand
-    second: {fileID: 2100000, guid: c749eb8cd3d65394c9238b4f578337bc, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: lambert2
-    second: {fileID: 2100000, guid: 8d81b74cbe65ec8488756bd6a0835bc9, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: lambert5
-    second: {fileID: 2100000, guid: 582413f51a3010b459646c8ef5d21355, type: 2}
+      name: lambert3
+    second: {fileID: 2100000, guid: 118c8214bc8688b4cb69462d542ff430, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -60,7 +45,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 10
+    globalScale: 300
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -115,7 +100,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.099999994
+    globalScale: 3
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
