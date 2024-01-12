@@ -102,8 +102,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject options;
     
+    [SerializeField]
+    private AudioClip jumpSFX;
+    
+    private AudioSource audioSource;
+    
     void Awake () {
         body = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
         body.useGravity = false;
         OnValidate();
         Cursor.lockState = CursorLockMode.Locked;
@@ -240,6 +246,8 @@ public class PlayerController : MonoBehaviour
     {
         if (OnGround || (stepsSinceLastGrounded < coyoteTime && stepsSinceLastJump > coyoteTime)|| jumpPhase < maxAirJumps)
         {
+            audioSource.clip = jumpSFX;
+            audioSource.Play();
             animator.Play("Jump");
             bubbleAnimator.Play("Jump");
             stepsSinceLastJump = 0;
