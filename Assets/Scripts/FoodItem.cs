@@ -9,7 +9,12 @@ public class FoodItem : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
-        {
+        {            
+            var components = FindObjectsOfType<FoodItem>();
+            if (components.Length == 1)
+            {
+                UICanvas.Instance.SetDisappearingPromptText($"All Cookies Found! Return Home!");
+            }
             OnCollect?.Invoke();
             Destroy(gameObject);
         }

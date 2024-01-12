@@ -9,6 +9,7 @@ public class WinArea : MonoBehaviour
     {
         if (canWin && other.gameObject.CompareTag("Player"))
         {
+            Cursor.lockState = CursorLockMode.None;
             SceneManager.LoadScene("WinScreen");
         }
     }

@@ -202,7 +202,7 @@ public class PlayerController : MonoBehaviour
         
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Jump") && OnGround && stepsSinceLastJump > 2)
         {
-            animator.Play("Idle");
+            animator.SetBool("EndJump", true);
             bubbleAnimator.Play("Ground");
         }
         
